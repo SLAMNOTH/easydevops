@@ -12,4 +12,3 @@ Console.WriteLine(@"
 
           
 ");
-Console.WriteLine("EasyDevOps");
