@@ -1,5 +1,3 @@
-    cleanWs()
-
 pipeline {
     agent any
     environment {
@@ -7,11 +5,18 @@ pipeline {
         PATH = "${env.PATH};${env.DOTNET_ROOT}" // Add .NET to PATH
     }
     stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+                // Print the directory structure to ensure everything is checked out correctly
+                bat 'dir /s'
+            }
+        }
         stage('Build') {
             steps {
                 script {
                     echo 'Building the .NET application...'
-                    bat 'dotnet build easydevops\\frontend\\EasyDevOps.csproj' // Correct path with double backslashes
+                    bat 'dotnet build easydevops\\frontend\\EasyDevOps.csproj'
                 }
             }
         }
