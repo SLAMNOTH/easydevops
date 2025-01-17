@@ -1,10 +1,11 @@
 pipeline {
     agent any
 
-    stages {
+        stages {
         stage('Clone') {
             steps {
-                git clone https://github.com/SLAMNOTH/easydevops.git
+                // Correct git directive for cloning
+                git branch: 'main', url: 'https://github.com/SLAMNOTH/easydevops.git'
             }
         }
         stage('Run') {
