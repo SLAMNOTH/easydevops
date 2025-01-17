@@ -1,2 +1,10 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+Console.WriteLine(@"
+ _______ _______ __  __
+|   _   |   _   |  |/  |
+|.  1___|.  1   |     < 
+|.  __) |.  ____|__|\__|
+|:  |   |:  |           
+|::.|   |::.           
+`---'   `---'           
+");
+Console.WriteLine("EasyDevOps");
