@@ -1,40 +1,41 @@
 pipeline {
     agent any
-    environment {
-        DOTNET_ROOT = 'C:\\Program Files\\dotnet' // Correct Windows path
-        PATH = "${env.PATH};${env.DOTNET_ROOT}" // Add .NET to PATH
-    }
+
     stages {
-        stage('Checkout') {
+        stage('Restore') {
             steps {
-                checkout scm
-                // Print the directory structure to ensure everything is checked out correctly
-                bat 'dir /s'
+                script {
+                    echo "Restoring dependencies..."
+                    // Restore .NET dependencies
+                    bat 'dotnet restore easydevops\\frontend\\EasyDevOps.csproj'
+                }
             }
         }
+
         stage('Build') {
             steps {
                 script {
-                    echo 'Building the .NET application...'
-                    bat 'dotnet build easydevops\\frontend\\EasyDevOps.csproj'
+                    echo "Building the .NET application..."
+                    // Build the .NET application
+                    bat 'dotnet build easydevops\\frontend\\EasyDevOps.csproj --configuration Release'
                 }
             }
         }
-        stage('Test') {
+
+        stage('Run') {
             steps {
                 script {
-                    echo 'Running tests...'
-                    bat 'dotnet test easydevops\\frontend\\EasyDevOps.csproj'
+                    echo "Running the .NET application..."
+                    // Run the application
+                    bat 'dotnet easydevops\\frontend\\bin\\Release\\net8.0\\EasyDevOps.dll'
                 }
             }
         }
-        stage('Publish') {
-            steps {
-                script {
-                    echo 'Publishing the .NET application...'
-                    bat 'dotnet publish easydevops\\frontend\\EasyDevOps.csproj -c Release -o output'
-                }
-            }
+    }
+
+    post {
+        always {
+            echo "Pipeline finished."
         }
     }
 }
